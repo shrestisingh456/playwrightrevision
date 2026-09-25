@@ -26,5 +26,6 @@ test ("scenario 1",async({browser})=>
    await page.locator("h4 a").nth(3).click()
    console.log(await page.locator(".jumbotron h1").textContent())
    await expect ( page.locator(".jumbotron h1")).toContainText(/Tutorial/)
+   console.log ("test completed")
 
 })
