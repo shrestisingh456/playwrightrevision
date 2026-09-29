@@ -7,6 +7,8 @@ test ("scenario 1",async({browser})=>
     const context =  await browser.newContext()
    const page =await context.newPage()
 
+   const newlink = page.locator("[href*='documents-request']")
+
    await page.goto("https://rahulshettyacademy.com/loginpagePractise/") 
    console.log (await page.title())
 
@@ -22,8 +24,19 @@ test ("scenario 1",async({browser})=>
    await expect (page.locator("[name='terms']")).toBeChecked()
    await page.locator("[name='terms']").uncheck()
    //await expect (page.locator("[name='terms']")).toBeChecked()
-   await expect (page.locator("[href*='documents-request']")).toHaveAttribute("class","blinkingText")
-   console.log(await page.locator ("[href*='documents-request']").textContent())
+   await expect (newlink).toHaveAttribute("class","blinkingText")
+   //console.log(await page.locator ("[href*='documents-request']").textContent())
+   console.log( await newlink.textContent())
+   const [newPage]= await Promise.all (
+    [
+     context.waitForEvent("page"),
+     newlink.click()
+
+    ]
+   )
+   const newpage2=await newPage.locator("h1").textContent()
+   const array=await newpage2.split(" ")
+   console.log (array[0])
    await page.locator(".btn.btn-info.btn-md").click()
    console.log(await page.locator("[ style*='block']").textContent())
    await expect(page.locator("[ style*='block']")).toContainText(/Incorrect/)
