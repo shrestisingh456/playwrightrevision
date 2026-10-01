@@ -85,19 +85,6 @@ const { test , expect }=require("@playwright/test")
       await expect(orderid.includes(ordercard)).toBeTruthy()
     
 
-//  const rows = page.locator("tbody tr")
-//  const totalorder= await rows.count()
-//  for ( let i =0;i<totalorder;i++)
-//  {
-//     const orders=await rows.nth(i).locator("th").textContent()
-//     if(orderid.includes(orders))
-//     {
-//         await rows.nth(i).locator("button").first().click()
-//         break;
-//     }
-//  }
-
-//  await page.waitForTimeout(5000)
 
     
 })
