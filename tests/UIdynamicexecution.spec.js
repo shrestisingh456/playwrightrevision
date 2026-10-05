@@ -6,6 +6,7 @@ const { test , expect }=require("@playwright/test")
   const context = await browser.newContext()
   const page = await context.newPage()
 
+  const link= await page.locator("[href*='job-ready']")
   const list =  page.locator(".card-body")
   const listname ="iphone 13 pro"
 
@@ -39,7 +40,7 @@ const { test , expect }=require("@playwright/test")
      await page.locator('[placeholder="Select Country"]').pressSequentially("ind")
       //await page.waitForTimeout (5000)
 
-    const dropdown = await page.locator(".ta-results")
+    const dropdown = page.locator(".ta-results")
      await dropdown.waitFor()
      const values= await dropdown.locator(".ta-item").count()
         
@@ -59,6 +60,7 @@ const { test , expect }=require("@playwright/test")
    console.log(text[0])
    const orderid=await page.locator(".em-spacer-1 .ng-star-inserted").textContent()
     console.log(orderid)
+    await expect (orderid).toBeTruthy()
     await page.locator(".btn.btn-custom").nth(1).click()
     await page.waitForTimeout(5000)
 
@@ -83,8 +85,22 @@ const { test , expect }=require("@playwright/test")
      const ordercard=await  page.locator(".col-text.-main").textContent()
 
       await expect(orderid.includes(ordercard)).toBeTruthy()
+
+     const [newPage]= await Promise.all([
+     context.waitForEvent("page"),
+      link.click()
+     ])
+
+    const newtitle=await newPage.locator("h1").textContent()
+    console.log(newtitle)
+
+      
+
+
+
+
+      })
     
 
 
     
-})
