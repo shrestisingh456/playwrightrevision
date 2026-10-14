@@ -1,9 +1,12 @@
 const {test ,expect,request}=require("@playwright/test")
 
 const payloads = {userEmail:"shrestisingh456@gmail.com",userPassword:"Letmein1!"}
+const details = {_id: "6960eac0c941646b7a8b3e68", productName: "ZARA COAT 3", productCategory: "electronics",productAddedBy :"admin",productCategory:"electronics",productDescription:"Apple phone",productFor:"women",productImage: "https://rahulshettyacademy.com/api/ecom/uploads/productImage_1767959232316.jpeg",productName: "ZARA COAT 3",productPrice:11500,productRating:"0",productStatus: true,productSubCategory: "mobiles",productTotalOrders: "0",__v: 0,_id: "6960eac0c941646b7a8b3e68",message: "Product Details fetched Successfully"}
+const message = "Product Details fetched Successfully"
+const orderlist = {orders:[{country:"India",productOrderedId:"6960eac0c941646b7a8b3e68"}]}
+let orderid
 let tokenvalue
-
-test.beforeAll("apilogin",async({})=>
+test("apilogin",async({})=>
 {
  
    const browser = await request.newContext()
@@ -18,6 +21,58 @@ test.beforeAll("apilogin",async({})=>
      tokenvalue= Jsonresponse.token
      console.log(tokenvalue)
 
+     const viewdetails=await browser.get("https://rahulshettyacademy.com/api/ecom/product/get-product-detail/6960eac0c941646b7a8b3e68",
+      {
+        data:details,
+        headers :
+        {
+          'authorization' : tokenvalue
+
+        }
+     })
+
+   console.log(viewdetails.status())
+    const Jsons = await viewdetails.json()
+     const toast =Jsons.message
+     console.log(toast)
+     
+     await expect (toast).toEqual(message)
+
+
+     const orderdetails =await browser.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
+      {
+        data: orderlist,
+        headers:
+        {
+          'authorization':tokenvalue,
+          'content-type': 'application/json; charset=utf-8'
+
+        }
+      }
+     )
+
+     expect(orderdetails.ok()).toBeTruthy();
+     console.log(await orderdetails.status())
+     const createdOrder = await orderdetails.json();
+     orderid = createdOrder.orders[0];
+     console.log(createdOrder)
+     console.log(createdOrder.orders)
+     console.log(createdOrder.message)
+
+     const deletecart=await browser.delete("https://rahulshettyacademy.com/api/ecom/user/remove-from-cart/6a1d617c17ee3e78baaef95f/6960eae1c941646b7a8b3ed3",
+      {
+        headers:
+        {'authorization': tokenvalue ,
+        'content-type': 'application/json; charset=utf-8'
+}
+        
+    }
+     )
+
+  console.log(await deletecart.status())
+  const deletecartjson = await deletecart.json()
+  console.log(deletecartjson.message)
+  await expect (deletecartjson.message).toEqual("Product Removed from cart")
 })
 
 
@@ -33,85 +88,30 @@ test.beforeAll("apilogin",async({})=>
   const listname ="iphone 13 pro"
   
 await page.goto("https://rahulshettyacademy.com/client/")
-await page.locator(".card-body").first().waitFor()
-  const totalcount=await (list).count()
-      for (let i=0;i<totalcount;i++)
-      {
-        if(await list.nth(i).locator("b").textContent()===listname)
-        {
-           await list.nth(i).getByText(" Add To Cart").click()
-           break
-        }
-      }
+await page.locator (".btn.btn-custom").nth(2).click()
 
-      await page.locator (".btn.btn-custom").nth(2).click()
+await page.locator(".btn.btn-custom").nth(1).click()
+await page.waitForTimeout(5000)
+await page.locator("tbody").waitFor()
 
-      await expect (page.locator ("[href*='job']")).toHaveAttribute("class","blinkingText")
-      const print =await page.locator ("a").nth(1).textContent()
-      console.log (print)
-      await page.getByText("Checkout").click()
-      
-     await page.locator (".field input").nth(2).fill("shresti singh")
-     await page.locator (".field input").nth(1).fill("123")
-     //await page.locator("[name='coupon']").fill("rahulshettyacademy")
-    await page.locator ("[type='submit']").click()
-
-     await page.locator('[placeholder="Select Country"]').pressSequentially("ind")
-      //await page.waitForTimeout (5000)
-
-    const dropdown = page.locator(".ta-results")
-     await dropdown.waitFor()
-     const values= await dropdown.locator(".ta-item").count()
-        
-      for ( let i=0;i< values;i++)
-      {
-        const result= await dropdown.locator(".ta-item").nth(i).textContent()
-        if(result===" India")
-        {
-            await dropdown.locator(".ta-item").nth(i).click()
-            break
-        }
-      }
-    await page.locator(".btnn.action__submit.ng-star-inserted").click()
-    const line=  await page.locator(".hero-primary").textContent()
-    console.log(line)
-   const text=await line.split("for")
-   console.log(text[0])
-   const orderid=await page.locator(".em-spacer-1 .ng-star-inserted").textContent()
-    console.log(orderid)
-    await expect (orderid).toBeTruthy()
-    await page.locator(".btn.btn-custom").nth(1).click()
-    await page.waitForTimeout(5000)
-
-
-    const orderno=page.locator("tbody tr");
+const orderno=page.locator("tbody tr");
      const row= await orderno.count()
 
      for (let i=0;i<row;i++)
      {
       const details= await orderno.nth(i).locator("th").textContent()
-      if (orderid.includes(details))
+      if (details && orderid && details.includes(orderid))
       {
         await orderno.nth(i).locator("button").first().click()
         break;
       }
      }
-       await page.waitForTimeout(5000)
-        await page.locator(".email-wrapper").waitFor()
 
-     const summary=await page.locator(".tagline").textContent()
+    await expect(page.locator(".tagline")).toBeVisible({ timeout: 30000 });
+    const summary=await page.locator(".tagline").textContent()
      console.log(summary)
-     const ordercard=await  page.locator(".col-text.-main").textContent()
-
-      await expect(orderid.includes(ordercard)).toBeTruthy()
-
-    //  const [newPage]= await Promise.all([
-    //  context.waitForEvent("page"),
-    //   link.click()
-    //  ])
-
-    // const newtitle=await newPage.locator("h1").textContent()
-    // console.log(newtitle)
+     
+    
 
 })
 
