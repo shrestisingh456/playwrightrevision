@@ -83,9 +83,9 @@ test("apilogin",async({})=>
     window.localStorage.setItem('token',value)
   },tokenvalue)
     
- const link= await page.locator("[href*='job-ready']")
-  const list =  page.locator(".card-body")
-  const listname ="iphone 13 pro"
+//  const link= await page.locator("[href*='job-ready']")
+//   const list =  page.locator(".card-body")
+//   const listname ="iphone 13 pro"
   
 await page.goto("https://rahulshettyacademy.com/client/")
 await page.locator (".btn.btn-custom").nth(2).click()
@@ -119,58 +119,51 @@ const orderno=page.locator("tbody tr");
 
 
 
-// const{test,expect,request}=require("@playwright/test")
-// const payload = {email:"shrestisingh456@gmail.com",password:"Letmein1!"}
-// let tokens
+const{test,expect,request}=require("@playwright/test")
+const payload = {email:"shrestisingh456@gmail.com",password:"Letmein1!"}
+let tokens
 
-// test.beforeAll("apitesting",async({})=>
+test.beforeAll("apitesting",async({})=>
 
-// {
+{
 
-//   const newcontext =await request.newContext()
-//      const apiresponse= await newcontext.post("https://api.eventhub.rahulshettyacademy.com/api/auth/login",
-//         {
-//           data:payload
-//         }
-//       )
+  const newcontext =await request.newContext()
+     const apiresponse= await newcontext.post("https://api.eventhub.rahulshettyacademy.com/api/auth/login",
+        {
+          data:payload
+        }
+      )
     
-//      await expect ( apiresponse.ok()).toBeTruthy()
-//     const jsonbody= await apiresponse.json()
-//       const result=jsonbody.success
-//       console.log(result)
-//        tokens=jsonbody.token
-//       console.log(tokens)
+     await expect ( apiresponse.ok()).toBeTruthy()
+    const jsonbody= await apiresponse.json()
+      const result=jsonbody.success
+      console.log(result)
+       tokens=jsonbody.token
+      console.log(tokens)
 
-// }
+}
 
-// )
+)
 
-// test("event",async({page})=>
-// {
+test("event",async({page})=>
+{
 
-//   await page.addInitScript(value=>
-//   {
-//   window.localStorage.setItem("eventhub_token",value)
-//   },tokens)
+  await page.addInitScript(value=>
+  {
+  window.localStorage.setItem("eventhub_token",value)
+  },tokens)
 
-// await page.goto("https://eventhub.rahulshettyacademy.com/")
+await page.goto("https://eventhub.rahulshettyacademy.com/")
 
-// await page.getByText("Book Now").nth(0).click()
-// await page.getByPlaceholder("Your full name").fill("shresti")
-// await page.getByPlaceholder("you@email.com").fill("shrestisingh456@gmail.com")
-// await page.getByPlaceholder("+91 98765 43210").fill("8685704641")
-// await page.getByRole("button",{name :'Confirm Booking'}).click()
-// await page.getByRole("button" ,{name: 'View My Bookings'}).click()
-// await expect (page).toHaveURL("https://eventhub.rahulshettyacademy.com/bookings")
-// await page.getByRole("button",{name: "View Details"}).nth(0).click()
-// })
-
-
-
-
-
-
-
+await page.getByText("Book Now").nth(0).click()
+await page.getByPlaceholder("Your full name").fill("shresti")
+await page.getByPlaceholder("you@email.com").fill("shrestisingh456@gmail.com")
+await page.getByPlaceholder("+91 98765 43210").fill("8685704641")
+await page.getByRole("button",{name :'Confirm Booking'}).click()
+await page.getByRole("button" ,{name: 'View My Bookings'}).click()
+await expect (page).toHaveURL("https://eventhub.rahulshettyacademy.com/bookings")
+await page.getByRole("button",{name: "View Details"}).nth(0).click()
+})
 
 
 
