@@ -1,4 +1,3 @@
-
 const { test, expect } = require("@playwright/test")
 
 test("scenario1", async ({ browser }) => {
@@ -6,7 +5,8 @@ test("scenario1", async ({ browser }) => {
     const page = await context.newPage()
     const jobname = "Hired"
     const download = page.getByRole("button", { name: "Download Application" });
-     await page.goto("https://atsqa.bbsi.com/login")
+    
+    await page.goto("https://atsqa.bbsi.com/login")
     await page.locator("#input-vaadin-email-field-6").fill("shresti.singh@bbsihq.com")
     await page.locator("#Ppb_65tyyn").first().click()
     await page.locator("#i0116").fill("shresti.singh@bbsihq.com")
@@ -17,7 +17,8 @@ test("scenario1", async ({ browser }) => {
     await page.locator("#KmsiCheckboxField").uncheck()
     await page.locator("[type='submit']").click()
     await page.waitForLoadState("networkidle")
-     const list = page.locator(".card.dashboard-sm-card")
+
+    const list = page.locator(".card.dashboard-sm-card")
     const total = await list.count()
 
     for (let i = 0; i < total; i++) {
@@ -26,6 +27,7 @@ test("scenario1", async ({ browser }) => {
             await list.nth(i).locator("[src*='icon-dashboard']").click()
         }
     }
+    
     await page.waitForLoadState("networkidle")
     const title = await page.getByText("APPLICANT LIST").nth(0).textContent()
     const letter = await title.split(" ")
@@ -35,28 +37,12 @@ test("scenario1", async ({ browser }) => {
 
     const [newPage] = await Promise.all
         ([
-
             context.waitForEvent("page"),
             download.click(),
-            
-
-
         ])
-
 
     await newPage.waitForLoadState("domcontentloaded");
     const pages = await newPage.locator(".action-btn.btn.btn-primary.mr-2").textContent()
     console.log(pages)
     await expect(pages).toBeTruthy()
-
 })
-
-
-
-
-
-
-
-
-
-

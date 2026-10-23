@@ -1,18 +1,12 @@
-
 const { test, expect } = require("@playwright/test")
 
 test("scenario 1", async ({ browser }) => {
-
     const context = await browser.newContext()
     const page = await context.newPage()
-
     const newlink = page.locator("[href*='documents-request']")
-
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     console.log(await page.title())
-
     await expect(page).toHaveTitle(/LoginPage Practise/)
-
     await page.locator("input#username").fill("rahulshettyyyacademy")
     await page.locator("[name='password']").fill("Learning@830$3mK2")
     await page.locator(".checkmark").nth(1).click()
@@ -22,10 +16,9 @@ test("scenario 1", async ({ browser }) => {
     console.log(await page.locator("[name='terms']").isChecked())
     await expect(page.locator("[name='terms']")).toBeChecked()
     await page.locator("[name='terms']").uncheck()
-    //await expect (page.locator("[name='terms']")).toBeChecked()
     await expect(newlink).toHaveAttribute("class", "blinkingText")
-    //console.log(await page.locator ("[href*='documents-request']").textContent())
     console.log(await newlink.textContent())
+
     const [newPage] = await Promise.all(
         [
             context.waitForEvent("page"),
@@ -33,6 +26,7 @@ test("scenario 1", async ({ browser }) => {
 
         ]
     )
+
     const newpage2 = await newPage.locator("h1").textContent()
     const array = await newpage2.split(" ")
     console.log(array[1])
@@ -49,6 +43,4 @@ test("scenario 1", async ({ browser }) => {
     console.log(await page.locator(".jumbotron h1").textContent())
     await expect(page.locator(".jumbotron h1")).toContainText(/Tutorial/)
     console.log("test completed")
-
-
 })
