@@ -14,7 +14,8 @@ export default defineConfig({
   use:
   {
     browserName: 'chromium',
-    headless: false,
+    // GitHub Actions has no display. Keep a visible browser locally, and run headless when CI is set.
+    headless: !!process.env.CI,
     screenshot: 'on',
     trace: 'retain-on-failure'
   }

@@ -73,7 +73,7 @@ test(" dynamic execution", async ({ browser }) => {
     }
   }
 
-  await page.waitForTmeout(5000)
+  await page.waitForTimeout(5000)
   await page.locator(".email-wrapper").waitFor()
 
   const summary = await page.locator(".tagline").textContent()

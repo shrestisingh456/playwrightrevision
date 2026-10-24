@@ -1,6 +1,7 @@
 const { test, expect } = require("@playwright/test")
 
 test("scenario1", async ({ browser }) => {
+    test.skip(!!process.env.CI, "Needs an interactive Microsoft login that GitHub Actions cannot complete")
     const context = await browser.newContext()
     const page = await context.newPage()
     const jobname = "Hired"
