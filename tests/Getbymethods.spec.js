@@ -21,7 +21,7 @@ test("getmethod", async ({ browser }) => {
   await page.locator(".nav-link.btn.btn-primary").click()
   await page.getByRole("button", { name: "Checkout" }).click()
   await page.locator("#country").fill("12345")
-  await page.getByRole("button", "Purchase").click()
+  await page.getByRole("button", { name: "Purchase" }).click()
 
   const msg = await page.locator(".alert.alert-success.alert-dismissible").textContent()
   console.log(msg)
