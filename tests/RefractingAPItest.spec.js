@@ -28,7 +28,7 @@ test(" dynamic execution", async ({ page }) => {
   await page.locator(".btn.btn-custom").nth(1).click()
   await page.waitForTimeout(5000)
   await page.locator("tbody").waitFor()
-
+  
   const orderno = page.locator("tbody tr");
   const row = await orderno.count()
 
