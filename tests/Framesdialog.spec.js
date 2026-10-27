@@ -8,7 +8,7 @@ test("Framesscenario", async ({ page }) => {
     await page.locator("#hide-textbox").click()
     await expect(page.locator("[name='show-hide']")).toBeHidden()
     await page.locator("#hide-textbox").hover()
-    page.once("dialog", dialog => dialog.accept())
+    page.on("dialog", dialog => dialog.accept())
     await page.locator("#alertbtn").click()
 
     const results = page.frameLocator("#courses-iframe")
@@ -16,4 +16,5 @@ test("Framesscenario", async ({ page }) => {
 
     const frames = await results.locator(" .text h2").textContent()
     console.log(frames.split("")[1])
+    
 })
