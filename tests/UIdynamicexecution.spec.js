@@ -35,7 +35,7 @@ test(" dynamic execution", async ({ browser }) => {
   await page.locator('[placeholder="Select Country"]').pressSequentially("ind")
 
   const dropdown = page.locator(".ta-results")
-  await dropdown.waitFor()
+ await dropdown.waitFor()
   
   const values = await dropdown.locator(".ta-item").count()
 
