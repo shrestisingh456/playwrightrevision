@@ -175,3 +175,161 @@
 
 // }
 // workbook()
+
+
+//update excel 
+
+
+// const worksheet = require("exceljs")
+// async function excelsheet() {
+
+//     const sheet = new worksheet.Workbook()
+//     await sheet.xlsx.readFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+//     const sheetab = sheet.getWorksheet("Netflix Series")
+//     sheetab.eachRow((row, rowno) => {
+
+//         row.eachCell((col, columnno) => {
+//             if (col.value == "BoJack Horseman") {
+//                 console.log(rowno, columnno)
+//             }
+//         })
+//     }
+//     )
+
+//    const result =  sheetab.getCell(13,1)
+//    result.value = "the frost"
+//    sheet.xlsx.writeFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+
+
+// }
+
+// excelsheet()
+
+
+// const worksheet = require("exceljs")
+
+// async function workbook() {
+//    let output=
+//    {
+//     rownumber:0,
+//     columnnumber:0
+//    }
+//     const sheet = new worksheet.Workbook()
+//     await sheet.xlsx.readFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+//     const sheettab = sheet.getWorksheet("Netflix Series")
+//     sheettab.eachRow((row, rowno) => {
+//         row.eachCell((col, columnno) => {
+//             if (col.value == "Breaking Bad") {
+//                 // console.log(rowno, columnno)
+//                 output.rownumber=rowno
+//                 output.columnnumber=columnno
+
+//             }
+//         })
+//     })
+
+//     const result = sheettab.getCell(output.rownumber,output.columnnumber)
+//     result.value = "Horror thriller"
+//     console.log(result.value)
+//     sheet.xlsx.writeFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+
+// }
+// workbook()
+
+
+// const workbook=require("exceljs")
+
+// async function sheet() {
+
+//     let object=
+//     {
+//         rownumber:0,
+//         columnnumber:0
+//     }
+
+//     const excel= new workbook.Workbook()
+//     await  excel.xlsx.readFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+//     const sheetab= excel.getWorksheet("Playwright Practice")
+//     sheetab.eachRow((row,rowno)=>
+//     {
+//         row.eachCell((cell,columnno)=>
+//         {
+//             if (cell.value=="Validation / assertions")
+//             {
+//                object.rownumber=rowno
+//                object.columnnumber=columnno
+//             }
+//         })
+//     })
+
+//     const result=sheetab.getCell(object.rownumber,object.columnnumber)
+//     result.value =" Testing /assertions"
+//     await excel.xlsx.writeFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+
+// }
+
+// sheet()
+
+
+
+const workbook = require("exceljs")
+
+async function sheet() {
+
+    let object = {
+        rownumber: 0,
+        columnnumber: 0
+
+    }
+
+    const sheet = new workbook.Workbook()
+    await sheet.xlsx.readFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+    const sheettab = sheet.getWorksheet("Netflix Series")
+    sheettab.eachRow((row, rowno) => {
+        row.eachCell((col, columnno) => {
+            if (col.value == 58) {
+                object.rownumber = rowno
+                object.columnnumber = columnno
+            }
+        })
+
+    })
+
+    const result = sheettab.getCell(object.rownumber, object.columnnumber)
+    result.value = 60
+    console.log(result.value)
+    sheet.xlsx.writeFile("C:/Users/ssingh/Downloads/Excel prac.xlsx")
+
+
+}
+sheet()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
